@@ -1,11 +1,29 @@
 /*
  * @Author: dong shun
- * @LastEditTime: 2022-04-21
+ * @LastEditTime: 2022-04-26
  */
 import { App } from "vue"
 import "element-plus/dist/index.css"
-import { ElButton, ElInput } from "element-plus"
-const components = [ElButton, ElInput]
+import {
+  ElButton,
+  ElInput,
+  ElMessage,
+  ElForm,
+  ElFormItem,
+  ElTabs,
+  ElTabPane,
+  ElIcon
+} from "element-plus"
+const components = [
+  ElButton,
+  ElInput,
+  ElMessage,
+  ElForm,
+  ElFormItem,
+  ElTabs,
+  ElTabPane,
+  ElIcon
+]
 
 // 方式一：
 // export function registerEl(app: App):void {
@@ -16,9 +34,9 @@ const components = [ElButton, ElInput]
 
 // 方式二：
 export default {
-    install(app: App): void {
-        for (const component of components) {
-            app.use(component)
-        }
+  install(app: App): void {
+    for (const component of components) {
+      app.use(component)
     }
+  }
 }

@@ -1,26 +1,28 @@
 /*
  * @Author: dong shun
- * @LastEditTime: 2022-04-22
- * @www.httpbin.org 测试网站
+ * @LastEditTime: 2022-04-25
+ *  统一出口
  */
-import axios, { AxiosRequestConfig } from "axios"
+import DSRequest from "./request"
+import { BASE_URL, TIMEOUT } from "./request/config"
+// 一个实例
 
-// 拦截器
-axios.interceptors.request.use(
-    (config: AxiosRequestConfig) => {
-        console.log(config)
-
-        return config
-    },
-    (err: AxiosRequestConfig) => {
-        console.log(err)
-        return err
-    }
-)
-
-axios.get("http://httpbin.org/get").then((res) => {
-    console.log(res)
+const DsRequest = new DSRequest({
+  baseURL: BASE_URL,
+  timeout: TIMEOUT
 })
-// export default function(){
+export default DsRequest
 
-// }
+/**
+ * 这个实例与上面的互不影响
+ * const DsRequest2 = new DSRequest({
+    baseURL: BASE_URL,
+    timeout: TIMEOUT,
+    interceptor: {
+        requestInterceptor: (config) => {
+            console.log("请求成功的拦截")
+            return config
+        }
+    }
+    })
+ */
