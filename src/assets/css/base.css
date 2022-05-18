@@ -37,3 +37,7 @@ html {
     background-position: 0 100%;
   }
 }
+/* 图表大小 */
+el-icon {
+  width: 24px;
+}

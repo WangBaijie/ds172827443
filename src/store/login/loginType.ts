@@ -1,8 +1,10 @@
 /*
  * @Author: dong shun
- * @LastEditTime: 2022-04-27
+ * @LastEditTime: 2022-05-18
  */
 export interface ILogin {
-  token: ""
+  token: string
   userInfo: any
+  userMenus: any[]
+  permissions: any[]
 }

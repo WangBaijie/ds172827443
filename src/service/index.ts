@@ -1,15 +1,27 @@
 /*
  * @Author: dong shun
- * @LastEditTime: 2022-04-25
+ * @LastEditTime: 2022-05-17
  *  统一出口
  */
 import DSRequest from "./request"
 import { BASE_URL, TIMEOUT } from "./request/config"
+import LocalCache from "@/util/cache"
 // 一个实例
 
 const DsRequest = new DSRequest({
   baseURL: BASE_URL,
-  timeout: TIMEOUT
+  timeout: TIMEOUT,
+  interceptor: {
+    requestInterceptor: (config) => {
+      const token = LocalCache.getCache("token")
+      if (token) {
+        if (config.headers) {
+          config.headers.Authorization = `Bearer ${token}`
+        }
+      }
+      return config
+    }
+  }
 })
 export default DsRequest
 

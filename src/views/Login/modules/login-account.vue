@@ -1,8 +1,9 @@
 <template>
   <div class="login-account">
     <el-form :model="account" :rules="FormRules" ref="FormRef">
-      <el-form-item label="账号" prop="username">
-        <el-input v-model="account.username" placeholder="请输入账号" />
+      <el-form-item label="账号" prop="name">
+        <!-- <el-input v-model="account.name" placeholder="请输入账号" /> -->
+        <el-input v-model="account.name" placeholder=""></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password">
         <el-input
@@ -26,11 +27,11 @@ export default defineComponent({
   setup() {
     const store = useStore()
     const account = reactive({
-      username: Cache.getCache("username") || "",
+      name: Cache.getCache("name") || "",
       password: Cache.getCache("password") || ""
     })
     const FormRules = {
-      username: [
+      name: [
         {
           required: true,
           message: "请输入账号",
@@ -59,7 +60,7 @@ export default defineComponent({
     const LoginAccount = () => {
       FormRef.value?.validate((valid) => {
         if (valid) {
-          Cache.setCache("username", account.username)
+          Cache.setCache("name", account.name)
           Cache.setCache("password", account.password)
           store.dispatch("LoginModule/accountLoginAction", { ...account })
         }
@@ -73,8 +74,4 @@ export default defineComponent({
     }
   }
 })
-/**
- * 二江寺（锦城大道） - 犀浦站 1小时11分钟
- * 犀浦站 - 都江堰站
- */
 </script>

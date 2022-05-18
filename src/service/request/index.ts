@@ -1,6 +1,6 @@
 /*
  * @Author: dong shun
- * @LastEditTime: 2022-04-26
+ * @LastEditTime: 2022-05-17
  *  封装效果：
  *  1、不同实例有属于自己的独立拦截器
  *  2、同个实例有单独接口配置的独立拦截器
@@ -42,7 +42,7 @@ class DSRequest {
     this.instance.interceptors.response.use(
       (res) => {
         // console.log("APP全局响应拦截器")
-        return res
+        return res.data
       },
       (err) => {
         return err
@@ -50,6 +50,7 @@ class DSRequest {
     )
   }
 
+  // 接收传入的参数 url / data / method,并将结果返回出去
   request<T>(config: DSRequestConfig<T>): Promise<T> {
     return new Promise((resolve, reject) => {
       if (config.interceptor?.requestInterceptor) {
