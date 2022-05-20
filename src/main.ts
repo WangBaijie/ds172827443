@@ -3,6 +3,7 @@ import router from "./router"
 import store from "./store"
 import App from "./App.vue"
 import { registerEl } from "./global/index" // 注册element组件
+import globalFn from "./global/globalFn" // 全局函数
 import "normalize.css" // 清除默认标签的第三方库
 import "./assets/css/base.css"
 import { setupStore } from "./store"
@@ -14,6 +15,7 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 }
 
 app.use(registerEl)
+app.use(globalFn)
 app.use(store)
 setupStore()
 

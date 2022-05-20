@@ -6,6 +6,7 @@
     </div>
     <el-menu
       :default-active="defaultValue"
+      :unique-opened="true"
       class="el-menu-vertical"
       :collapse="collapse"
       background-color="#0c2135"

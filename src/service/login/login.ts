@@ -1,6 +1,6 @@
 /*
  * @Author: dong shun
- * @LastEditTime: 2022-05-17
+ * @LastEditTime: 2022-05-20
  */
 import DsRequest from "../index"
 
@@ -39,5 +39,13 @@ export function requestUserInfoById(id: number) {
 export function requestUserMenusByRoleId(id: number) {
   return DsRequest.get<IDataType>({
     url: UrlMap.RoleUrl + id + "/menu"
+  })
+}
+
+// 获取列表数据
+export function getPageListData(url: string, queryInfo: any) {
+  return DsRequest.post<IDataType>({
+    url: url,
+    data: queryInfo
   })
 }

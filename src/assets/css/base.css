@@ -39,5 +39,9 @@ html {
 }
 /* 图表大小 */
 el-icon {
-  width: 24px;
+  width: 14px;
+  margin-right: 5px;
+}
+.el-table .el-table__cell {
+  padding: 15px 0 !important;
 }

@@ -1,9 +1,13 @@
 /*
  * @Author: dong shun
- * @LastEditTime: 2022-05-18
+ * @LastEditTime: 2022-05-20
  */
 import { App } from "vue"
 import "element-plus/dist/index.css"
+import DsTable from "@/base-ui/table"
+import PageContent from "@/components/page-content"
+import PageSearch from "@/components/page-search"
+
 import {
   ElAside,
   ElAvatar,
@@ -73,7 +77,12 @@ const components = [
   ElTableColumn,
   ElPagination,
   ElImage,
-  ElDialog
+  ElDialog,
+
+  // 自定义全局组件
+  DsTable,
+  PageContent,
+  PageSearch
 ]
 
 // 方式一：

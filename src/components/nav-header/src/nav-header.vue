@@ -1,11 +1,9 @@
 <template>
   <div class="nav-header">
-    <el-icon v-if="isFold" @click="handleFoldClick" :size="size"
-      ><Expand
-    /></el-icon>
-    <el-icon v-else @click="handleFoldClick" :size="size"><Fold /></el-icon>
+    <el-icon v-if="isFold" @click="handleFoldClick"><Expand /></el-icon>
+    <el-icon v-else @click="handleFoldClick"><Fold /></el-icon>
     <div class="content">
-      <hy-breadcrumb :breadcrumbs="breadcrumbs" />
+      <ds-breadcrumb :breadcrumbs="breadcrumbs" />
       <user-info />
     </div>
   </div>
@@ -14,7 +12,7 @@
 <script lang="ts">
 import { defineComponent, ref, computed } from "vue"
 import UserInfo from "./user-info.vue"
-import HyBreadcrumb, { IBreadcrumb } from "@/base-ui/breadcrumb"
+import DsBreadcrumb, { IBreadcrumb } from "@/base-ui/breadcrumb"
 
 import { useStore } from "@/store"
 import { useRoute } from "vue-router"
@@ -23,7 +21,7 @@ import { pathMapBreadcrumbs } from "@/util/mapRoute"
 export default defineComponent({
   components: {
     UserInfo,
-    HyBreadcrumb
+    DsBreadcrumb
   },
   emits: ["foldChange"],
   setup(props, { emit }) {

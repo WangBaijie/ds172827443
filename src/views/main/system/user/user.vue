@@ -1,17 +1,19 @@
 <template>
-  <div class="user">user</div>
+  <div class="user">
+    <PageSearch :searchFormConfig="searchFormConfig"></PageSearch>
+    <PageContent
+      :contentTableConfig="contentTableConfig"
+      pageName="users"
+    ></PageContent>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from "vue"
+import { defineComponent, computed, ref } from "vue"
 import { useStore } from "@/store"
 
-// import PageSearch from "@/components/page-search"
-// import PageContent from "@/components/page-content"
-// import PageModal from "@/components/page-modal"
-
-// import { searchFormConfig } from "./config/search.config"
-// import { contentTableConfig } from "./config/content.config"
+import { searchFormConfig } from "./config/searchConfig"
+import { contentTableConfig } from "./config/contentConfig"
 // import { modalConfig } from "./config/modal.config"
 
 // import { usePageSearch } from "@/hooks/use-page-search"
@@ -19,13 +21,16 @@ import { useStore } from "@/store"
 
 export default defineComponent({
   name: "users",
+  setup() {
+    return {
+      contentTableConfig,
+      searchFormConfig
+    }
+  },
   components: {
     // PageSearch,
     // PageContent,
     // PageModal
-  },
-  setup() {
-    return {}
   }
 })
 </script>

@@ -5,7 +5,7 @@
 <script lang="ts">
 import { defineComponent } from "vue"
 export default defineComponent({
-  name: "hy-menu",
+  name: "ds-menu",
   components: {},
   setup() {
     return {}
