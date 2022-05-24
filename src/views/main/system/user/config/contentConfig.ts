@@ -22,7 +22,7 @@ export const contentTableConfig: ITableData = {
       minWidth: "250",
       slotName: "updateAt"
     },
-    { prop: "", label: "操作", minWidth: "140", slotName: "handler" }
+    { label: "操作", minWidth: "140", slotName: "handler" }
   ],
   showIndexColumn: true,
   showSelectColumn: true

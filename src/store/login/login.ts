@@ -1,6 +1,6 @@
 /*
  * @Author: dong shun
- * @LastEditTime: 2022-05-18
+ * @LastEditTime: 2022-05-24
  */
 import { Module } from "vuex"
 import { ILogin } from "./loginType"
@@ -50,13 +50,15 @@ const LoginModule: Module<ILogin, IRootState> = {
     }
   },
   actions: {
-    async accountLoginAction({ commit }, payload: IAccount) {
+    async accountLoginAction({ commit, dispatch }, payload: IAccount) {
       // 1. 请求登录接口
       const loginResult = await AccountLoginRequest(payload)
       const { id, token } = loginResult.data
 
       commit("changeToken", token)
       LocalCache.setCache("token", token)
+      // 发送初始化请求（完整的role/departmentResult）部门和角色数据
+      dispatch("getInitialDataAction", null, { root: true })
 
       // 2. 请求用户信息
       const userInfoResult = await requestUserInfoById(id)
@@ -74,10 +76,11 @@ const LoginModule: Module<ILogin, IRootState> = {
       router.push("/main")
     },
     // 页面刷新时重新获取
-    loadLocalLogin({ commit }) {
+    loadLocalLogin({ commit, dispatch }) {
       const token = LocalCache.getCache("token")
       if (token) {
         commit("changeToken", token)
+        dispatch("getInitialDataAction", null, { root: true })
       }
       const userInfo = LocalCache.getCache("userInfo")
       if (userInfo) {

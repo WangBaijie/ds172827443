@@ -1,9 +1,9 @@
 /*
  * @Author: dong shun
- * @LastEditTime: 2022-05-20
+ * @LastEditTime: 2022-05-24
  */
 interface ITable {
-  prop: string
+  prop?: string
   label: string
   minWidth?: string
   slotName?: string

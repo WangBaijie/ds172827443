@@ -34,6 +34,7 @@
                   <el-option
                     v-for="option in item.options"
                     :key="option.value"
+                    :label="option.title"
                     :value="option.value"
                     >{{ option.title }}</el-option
                   >
@@ -63,6 +64,7 @@ import { defineComponent, PropType } from "vue"
 import { IFormItem } from "../types"
 
 export default defineComponent({
+  name: "DsForm",
   props: {
     modelValue: {
       type: Object,

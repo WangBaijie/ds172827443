@@ -1,6 +1,6 @@
 /*
  * @Author: dong shun
- * @LastEditTime: 2022-05-20
+ * @LastEditTime: 2022-05-24
  */
 import DsRequest from "../index"
 
@@ -47,5 +47,28 @@ export function getPageListData(url: string, queryInfo: any) {
   return DsRequest.post<IDataType>({
     url: url,
     data: queryInfo
+  })
+}
+
+// 创建新用户
+export function createPageData(url: string, newData: any) {
+  return DsRequest.post<IDataType>({
+    url: url,
+    data: newData
+  })
+}
+
+// 编辑用户信息
+export function editPageData(url: string, editData: any) {
+  return DsRequest.patch<IDataType>({
+    url: url,
+    data: editData
+  })
+}
+
+// url: /users/id 根据ID删除用户
+export function deletePageData(url: string) {
+  return DsRequest.delete<IDataType>({
+    url: url
   })
 }

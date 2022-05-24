@@ -1,12 +1,14 @@
 /*
  * @Author: dong shun
- * @LastEditTime: 2022-05-20
+ * @LastEditTime: 2022-05-24
  */
 import { App } from "vue"
 import "element-plus/dist/index.css"
 import DsTable from "@/base-ui/table"
 import PageContent from "@/components/page-content"
 import PageSearch from "@/components/page-search"
+import PageModal from "@/components/page-modal"
+import DsForm from "@/base-ui/form"
 
 import {
   ElAside,
@@ -82,7 +84,9 @@ const components = [
   // 自定义全局组件
   DsTable,
   PageContent,
-  PageSearch
+  PageSearch,
+  PageModal,
+  DsForm
 ]
 
 // 方式一：

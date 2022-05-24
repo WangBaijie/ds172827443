@@ -8,7 +8,14 @@
         </div>
       </slot>
     </div>
-    <el-table :data="tableData" stripe border>
+
+    <el-table
+      :data="tableData"
+      stripe
+      border
+      @selection-change="handleSelectionChange"
+      v-bind="childrenProps"
+    >
       <el-table-column
         v-if="showSelectColumn"
         type="selection"
@@ -25,7 +32,7 @@
 
       <template v-for="propItem in propsList" :key="propItem.prop">
         <el-table-column v-bind="propItem" align="center" show-overflow-tooltip>
-          <template #default="scope" :row="scoped">
+          <template #default="scope">
             <slot :name="propItem.slotName" :row="scope.row">
               {{ scope.row[propItem.prop] }}
             </slot>
@@ -33,6 +40,21 @@
         </el-table-column>
       </template>
     </el-table>
+
+    <div class="footer" v-if="showFooter">
+      <slot name="footer">
+        <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="page.currentPage"
+          :page-size="page.pageSize"
+          :page-sizes="[5, 10, 20]"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="listCount"
+        >
+        </el-pagination>
+      </slot>
+    </div>
   </div>
 </template>
 
@@ -40,7 +62,7 @@
 import { defineComponent } from "vue"
 
 export default defineComponent({
-  name: "ds-table",
+  name: "DsTable",
   props: {
     tableData: {
       type: Array,
@@ -73,10 +95,31 @@ export default defineComponent({
     leftHeaderTitle: {
       type: String,
       default: ""
+    },
+    childrenProps: {
+      type: Object,
+      default: () => ({})
     }
   },
-  setup() {
-    return
+  emits: ["selectionChange", "update:page"],
+  setup(props, { emit }) {
+    const handleSelectionChange = (value: any) => {
+      emit("selectionChange", value)
+    }
+
+    const handleCurrentChange = (currentPage: number) => {
+      emit("update:page", { ...props.page, currentPage })
+    }
+
+    const handleSizeChange = (pageSize: number) => {
+      emit("update:page", { ...props.page, pageSize })
+    }
+
+    return {
+      handleSelectionChange,
+      handleCurrentChange,
+      handleSizeChange
+    }
   }
 })
 </script>
@@ -96,13 +139,13 @@ export default defineComponent({
   .handler {
     align-items: center;
   }
-}
-
-.footer {
-  margin-top: 15px;
-
-  .el-pagination {
-    text-align: right;
+  .footer {
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-end;
+    .el-pagination {
+      text-align: right;
+    }
   }
 }
 </style>

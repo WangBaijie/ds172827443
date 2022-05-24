@@ -85,6 +85,10 @@ class DSRequest {
   put<T>(config: DSRequestConfig<T>) {
     return this.request<T>({ ...config, method: "PUT" })
   }
+
+  patch<T>(config: DSRequestConfig<T>) {
+    return this.request<T>({ ...config, method: "patch" })
+  }
 }
 
 export default DSRequest

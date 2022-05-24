@@ -1,6 +1,6 @@
 /*
  * @Author: dong shun
- * @LastEditTime: 2022-05-17
+ * @LastEditTime: 2022-05-24
  */
 /*
  * @Author: dong shun
@@ -12,6 +12,8 @@ import { ISystemState } from "./system/types"
 export interface IRootState {
   name: string
   age: number
+  entireDepartment: any[]
+  entireRole: any[]
 }
 
 export interface IRootWithModule {

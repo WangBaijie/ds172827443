@@ -9,6 +9,7 @@ export function usePageModal(newCb?: CallbackFn, editCb?: CallbackFn) {
   const handleNewData = () => {
     defaultInfo.value = {}
     if (pageModalRef.value) {
+      console.log("PageModal-新建")
       pageModalRef.value.dialogVisible = true
     }
     newCb && newCb()

@@ -8,12 +8,16 @@
     >
       <!-- 1.header中的插槽 -->
       <template #headerHandler>
-        <el-button type="primary">新建用户</el-button>
+        <el-button type="primary" @click="handleNewClick">新建用户</el-button>
       </template>
 
-      <!-- 2.列中的常用插槽 -->
+      <!-- 2.列中的常用插槽,在传入的配置中传入对应的插槽名 -->
       <template #status="scope">
-        <el-button plain :type="scope.row.enable ? 'success' : 'danger'">
+        <el-button
+          plain
+          :type="scope.row.enable ? 'success' : 'danger'"
+          @click="isEnable"
+        >
           {{ scope.row.enable ? "启用" : "禁用" }}
         </el-button>
       </template>
@@ -23,12 +27,18 @@
       <template #updateAt="scope">
         <span>{{ $globalFN.formatTime(scope.row.updateAt) }}</span>
       </template>
-      <template #handler>
-        <div class="handle-btns">
-          <el-button v-if="isUpdate" type="primary"
+      <template #handler="scope">
+        <div class="handleBtns">
+          <el-button
+            v-if="isUpdate"
+            type="primary"
+            @click="handleEditClick(scope.row)"
             ><el-icon><Edit /></el-icon>编辑</el-button
           >
-          <el-button v-if="isDelete" type="danger"
+          <el-button
+            v-if="isDelete"
+            type="danger"
+            @click="handleDeleteClick(scope.row)"
             ><el-icon><Delete /></el-icon>删除</el-button
           >
         </div>
@@ -64,7 +74,8 @@ export default defineComponent({
       required: true
     }
   },
-  setup(props) {
+  emits: ["newBtnClick", "editBtnClick"],
+  setup(props, { emit }) {
     const store = useStore()
 
     // 0.获取操作的权限
@@ -73,7 +84,7 @@ export default defineComponent({
     const isDelete = usePermission(props.pageName, "delete")
     const isQuery = usePermission(props.pageName, "query")
 
-    // 1.双向绑定pageInfo
+    // 1.双向绑定pageInfo(页码切换时触发执行接口)
     const pageInfo = ref({ currentPage: 0, pageSize: 10 })
     watch(pageInfo, () => getPageData())
 
@@ -89,6 +100,7 @@ export default defineComponent({
         }
       })
     }
+    getPageData()
 
     // 3.从vuex中获取数据
     const dataList = computed(() =>
@@ -101,15 +113,34 @@ export default defineComponent({
     // 4.获取其他的动态插槽名称
     const otherPropSlots = props.contentTableConfig?.propsList.filter(
       (item: any) => {
-        if (
-          ["status", "createAt", "updateAt", "handler"].includes(item.slotName)
-        )
-          return false
+        if (item.slotName === "status") return false
+        if (item.slotName === "createAt") return false
+        if (item.slotName === "updateAt") return false
+        if (item.slotName === "handler") return false
         return true
       }
     )
 
-    getPageData()
+    // 5.删除/编辑/新建操作
+    const handleDeleteClick = (item: any) => {
+      console.log(item)
+      store.dispatch("systemModule/deletePageDataAction", {
+        pageName: props.pageName,
+        id: item.id
+      })
+    }
+    const handleNewClick = () => {
+      emit("newBtnClick")
+    }
+    const handleEditClick = (item: any) => {
+      console.log(item)
+      emit("editBtnClick", item)
+    }
+
+    // 5.个人扩展启用禁用按钮
+    const isEnable = () => {
+      console.log("isEnable-启用禁用按钮")
+    }
 
     return {
       dataList,
@@ -119,7 +150,11 @@ export default defineComponent({
       pageInfo,
       isCreate,
       isUpdate,
-      isDelete
+      isDelete,
+      isEnable,
+      handleNewClick,
+      handleEditClick,
+      handleDeleteClick
     }
   }
 })
